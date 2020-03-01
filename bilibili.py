@@ -117,17 +117,17 @@ class BiliBili(object):
         return False if r["data"] else True
 
     def get_key(self) -> tuple:
-        data = {
-            "appkey": self.AppKey,
-            "ts": str(int(time.time()))
-        }
-        data["sign"] = self.calc_sign(data)
-        r = self.s.post(self.GET_KEY_URL, data).json()
-        try:
-            return r["data"]["hash"], r["data"]["key"]
-        except KeyError:
-            time.sleep(5)
-            self.get_key()
+        for _ in range(5):
+            data = {
+                "appkey": self.AppKey,
+                "ts": str(int(time.time()))
+            }
+            data["sign"] = self.calc_sign(data)
+            r = self.s.post(self.GET_KEY_URL, data).json()
+            try:
+                return r["data"]["hash"], r["data"]["key"]
+            except KeyError:
+                time.sleep(5)
     
     def login_with_captcha(self, data: dict) -> dict:
         BiliBili.log("需要验证码")

@@ -54,8 +54,7 @@ class BiliBili(object):
     
     @staticmethod
     def log(*msg: object):
-        print(f'[{time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())}]', end=" ")
-        print(*msg)
+        print(f'[{time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())}]', *msg)
     
     def md5(self, payload: any) -> str:
         hl = hashlib.md5()

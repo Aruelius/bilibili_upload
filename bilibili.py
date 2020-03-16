@@ -16,7 +16,7 @@ import re
 import threading
 import time
 import traceback
-from configparser import RawConfigParser
+from configparser import ConfigParser
 from urllib import parse
 
 import aiohttp
@@ -575,7 +575,7 @@ class NicoNico(object):
 
 class Monitor(object):
     def __init__(self):
-        self.cfg = RawConfigParser()
+        self.cfg = ConfigParser()
         self.cfg.read("config.ini")
         self.nico_username = self.cfg.get("niconico", "username")
         self.nico_password = self.cfg.get("niconico", "password")
